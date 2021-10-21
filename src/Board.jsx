@@ -4,10 +4,17 @@ import Square from "./Square";
 
 export default class Board extends Component {
   renderSquare(i) {
+    let color;
+
+    if (this.props.winner != null && this.props.winner.includes(i)) {
+      color = 1;
+    } else color = 0;
+
     return (
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        color={color}
       />
     );
   }
@@ -15,9 +22,7 @@ export default class Board extends Component {
   render() {
     return (
       <div>
-        {" "}
         <div className="board-row">
-          {" "}
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}

@@ -43,32 +43,37 @@ export default class Game extends Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const desc = move ? "Go to move #" + move : "Go to game start";
-
       if (move) {
         return (
-          <li>
+          <li key={move}>
             <Miniature
               onClick={() => this.jumpTo(move)}
               data={history[move].squares}
-              key={"min" + move}
             />
           </li>
         );
       } else
         return (
           <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>{desc}</button>{" "}
+            <button onClick={() => this.jumpTo(move)}>
+              {"Go to game start"}
+            </button>{" "}
           </li>
         );
     });
 
     let status;
     if (winner) {
-      status = "Winner: " + winner;
+      status = "Winner: " + winner[0];
+    } else if (history.length === 10 && !calculateWinner(current.squares)) {
+      status = "Draw";
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
+
+    let win_line = calculateWinner(current.squares)
+      ? calculateWinner(current.squares)[1]
+      : null;
 
     return (
       <div className="game">
@@ -76,6 +81,7 @@ export default class Game extends Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winner={win_line}
           />{" "}
         </div>
         <div className="game-info">
@@ -100,7 +106,8 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      let winner = [squares[a], lines[i]];
+      return winner;
     }
   }
   return null;

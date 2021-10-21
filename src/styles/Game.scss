@@ -28,6 +28,13 @@ li {
 
     justify-self: unset;
   }
+
+  &:last-of-type {
+    p {
+      border: 1px solid #9a99ff !important;
+      color: #9a99ff !important;
+    }
+  }
 }
 
 .status {
