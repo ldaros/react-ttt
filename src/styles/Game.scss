@@ -3,13 +3,16 @@ body {
   justify-content: center;
   font: 16px "Century Gothic", Futura, sans-serif;
   margin: 10vh 0;
+
+  // dark mode only :)
   background: #121212;
   color: #fff;
 }
 
+// ol is the container for the history on the left side.
 ol {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr; // 2 columns
 
   gap: 10px;
 
@@ -18,18 +21,21 @@ ol {
   transition: all 0.5s ease-in-out;
 }
 
+// lis are just the miniaturized boards
 li {
   animation: slide-up 0.4s ease;
 
   justify-self: center;
 
+  // the first element (button) takes full width
   &:nth-child(1) {
     grid-column: span 2;
 
     justify-self: unset;
   }
 
-  &:last-of-type {
+  // current board that is being played
+  & .color {
     p {
       border: 1px solid #9a99ff !important;
       color: #9a99ff !important;
@@ -45,6 +51,7 @@ li {
   display: flex;
   flex-direction: row;
 
+  // the board takes the full width (mobile)
   @media screen and (max-width: 500px) {
     flex-direction: column;
   }
@@ -58,6 +65,7 @@ li {
     width: 7em;
   }
 
+  // since the board takes the full width, it doesn't need margin anymore.
   @media screen and (max-width: 500px) {
     margin-left: 0;
   }
@@ -77,6 +85,7 @@ button {
   }
 }
 
+// nice animation for new boards
 @keyframes slide-up {
   0% {
     opacity: 0;
